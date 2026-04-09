@@ -98,10 +98,19 @@ const artConfig: Array<null | { text: string; right?: boolean }> = [
       transform 2.5s ease-out;
   }
 
-  .ascii-art span:hover,
-  .ascii-art span.touched {
+  .ascii-art span[data-grid]:hover,
+  .ascii-art span[data-grid].touched {
     color: var(--accent);
-    transform: translateY(-12%) scale(2.1);
+    transform: rotate(-20deg) translateY(-12%) scale(2.1); /* grid chars */
+    transition:
+      color 0.05s ease,
+      transform 0.05s ease;
+  }
+
+  .ascii-art span:not([data-grid]):hover,
+  .ascii-art span:not([data-grid]).touched {
+    color: var(--accent);
+    transform: rotate(3deg) translateY(-12%) scale(2.1); /* text chars */
     transition:
       color 0.05s ease,
       transform 0.05s ease;
