@@ -1,6 +1,26 @@
-@import '@fontsource/space-mono/400.css';
-@import '@fontsource/space-mono/700.css';
-@import '@fontsource/space-mono/400-italic.css';
+@font-face {
+  font-family: 'Space Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: optional;
+  src: url('/fonts/space-mono-latin-400-normal.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Space Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-display: optional;
+  src: url('/fonts/space-mono-latin-700-normal.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Space Mono';
+  font-style: italic;
+  font-weight: 400;
+  font-display: optional;
+  src: url('/fonts/space-mono-latin-400-italic.woff2') format('woff2');
+}
 @import "tailwindcss";
 
 :root {
