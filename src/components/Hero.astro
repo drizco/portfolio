@@ -1,20 +1,18 @@
 ---
 import { profile } from '../data/profile'
-import { createRow, filledRow, getCoolChar } from '../utils/ascii'
+import { createRow, filledRow } from '../utils/ascii'
 
-const randomChar = getCoolChar()
+const bar = filledRow()
 
-const bar: string[] = filledRow(randomChar)
-
-const artConfig: Array<null | { text: string; char?: string; right?: boolean }> = [
+const artConfig: Array<null | { text: string; right?: boolean }> = [
   null,
   null,
-  { text: profile.name, char: randomChar },
+  { text: profile.name },
   null,
   null,
   null,
   null,
-  { text: profile.title, char: randomChar, right: true },
+  { text: profile.title, right: true },
   null,
   null,
 ]
@@ -31,12 +29,22 @@ const artConfig: Array<null | { text: string; char?: string; right?: boolean }> 
         artConfig.map((config) => (
           <div class={`row ${config?.right ? 'row-right' : ''}`}>
             {(config ? createRow(config) : bar).map((char) => (
-              <span>{char}</span>
+              <span data-grid={char.grid || undefined}>{char.char}</span>
             ))}
           </div>
         ))
       }
     </div>
+
+    <script is:inline>
+      {
+        const coolChars = ['\u00bb', '\u2261', '~', '\u2534', '\u00a4', '/', '\u00b7']
+        const newChar = coolChars[Math.floor(Math.random() * coolChars.length)]
+        document.querySelectorAll('.ascii-art [data-grid]').forEach((span) => {
+          span.textContent = newChar
+        })
+      }
+    </script>
 
     <p class="tagline">{profile.tagline}</p>
 
