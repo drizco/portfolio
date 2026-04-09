@@ -1,0 +1,31 @@
+---
+import { profile } from '../data/profile'
+
+const year = new Date().getFullYear()
+---
+
+<footer class="footer">
+  <hr class="divider" />
+  <p>
+    {profile.name.toLowerCase()} &mdash; {year}
+    &nbsp;&middot;&nbsp;
+    <a href={profile.social.github} target="_blank" rel="noopener">[github]</a>
+    &nbsp;
+    <a href={profile.social.linkedin} target="_blank" rel="noopener">[linkedin]</a>
+    &nbsp;
+    <a href={`mailto:${profile.social.email}`}>[email]</a>
+  </p>
+</footer>
+
+<style>
+  .footer {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 2rem 3rem;
+  }
+
+  .footer p {
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+</style>

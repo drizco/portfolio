@@ -1,0 +1,116 @@
+---
+import { projects, type Project } from '../data/projects'
+
+const groupedProjects = projects.reduce<[Project[], Project[]]>(
+  (acc, curr) => {
+    acc[curr.type === 'work' ? 0 : 1].push(curr)
+    return acc
+  },
+  [[], []]
+)
+---
+
+<section id="projects" class="section" aria-label="Projects">
+  <h2 class="section-label">projects</h2>
+  <hr class="divider" />
+
+  {
+    groupedProjects.map((group, i) => (
+      <>
+        <div class="group">
+          <p class="group-heading muted">// {group[0]?.type ?? ''}</p>
+          <div class="project-list">
+            {group.map((p) => (
+              <div class="project">
+                <div class="project-top">
+                  <span class="project-title">{p.title}</span>
+                  <span class="project-tags">
+                    {p.tags.map((tag, i) => (
+                      <>
+                        <span class="tag">
+                          {tag}
+                          {i < p.tags.length - 1 && ' | '}
+                        </span>
+                      </>
+                    ))}
+                  </span>
+                </div>
+                <p class="project-desc">{p.description}</p>
+                {(p.url || p.github) && (
+                  <div class="project-links">
+                    {p.url && (
+                      <a href={p.url} target="_blank" rel="noopener">
+                        [website]
+                      </a>
+                    )}
+                    {p.github && (
+                      <a href={p.github} target="_blank" rel="noopener">
+                        [github]
+                      </a>
+                    )}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {i < groupedProjects.length - 1 && <hr class="divider" />}
+      </>
+    ))
+  }
+</section>
+
+<style>
+  .group {
+    margin-bottom: 3rem;
+  }
+
+  .group-heading {
+    font-size: 0.8rem;
+    margin-bottom: 1.25rem;
+    font-style: italic;
+  }
+
+  .project-list {
+    display: flex;
+    gap: 2rem;
+    flex-direction: column;
+  }
+
+  .project-top {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.4rem;
+  }
+
+  .project-title {
+    font-weight: 700;
+  }
+
+  .project-tags {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+
+  .project-desc {
+    font-size: 0.9rem;
+    color: var(--text);
+    max-width: 60ch;
+    margin: 0 0 0.5rem;
+  }
+
+  .project-links {
+    display: flex;
+    gap: 0.75rem;
+    font-size: 0.85rem;
+  }
+</style>

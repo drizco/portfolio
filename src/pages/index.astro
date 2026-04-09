@@ -1,0 +1,28 @@
+---
+import Base from '../layouts/Base.astro'
+import Hero from '../components/Hero.astro'
+import About from '../components/About.astro'
+import Experience from '../components/Experience.astro'
+import Projects from '../components/Projects.astro'
+import Footer from '../components/Footer.astro'
+import { profile } from '../data/profile'
+---
+
+<Base title={`${profile.name} — Portfolio`} description={profile.tagline}>
+  <main id="main-content">
+    <Hero />
+    <About />
+    <div class="spacer"></div>
+    <Experience />
+    <div class="spacer"></div>
+    <Projects />
+    <div class="spacer"></div>
+  </main>
+  <Footer />
+</Base>
+
+<style>
+  .spacer {
+    height: 8rem;
+  }
+</style>

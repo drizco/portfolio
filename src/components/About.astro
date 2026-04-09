@@ -1,0 +1,23 @@
+---
+import { profile } from '../data/profile'
+---
+
+<section id="about" class="section" aria-label="About">
+  <h2 class="section-label">about</h2>
+  <hr class="divider" />
+  <div class="bio">
+    {profile.bio.map((para) => <p>{para}</p>)}
+  </div>
+</section>
+
+<style>
+  .bio p {
+    color: var(--text);
+    margin-bottom: 1.25rem;
+    max-width: 60ch;
+  }
+
+  .bio p:last-child {
+    margin-bottom: 0;
+  }
+</style>
