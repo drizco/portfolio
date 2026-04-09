@@ -2,7 +2,7 @@
   font-family: 'Space Mono';
   font-style: normal;
   font-weight: 400;
-  font-display: optional;
+  font-display: swap;
   src: url('/fonts/space-mono-latin-400-normal.woff2') format('woff2');
 }
 
@@ -10,7 +10,7 @@
   font-family: 'Space Mono';
   font-style: normal;
   font-weight: 700;
-  font-display: optional;
+  font-display: swap;
   src: url('/fonts/space-mono-latin-700-normal.woff2') format('woff2');
 }
 
@@ -18,8 +18,19 @@
   font-family: 'Space Mono';
   font-style: italic;
   font-weight: 400;
-  font-display: optional;
+  font-display: swap;
   src: url('/fonts/space-mono-latin-400-italic.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Space Mono Fallback';
+  font-style: normal;
+  font-weight: 400 700;
+  src: local('Arial');
+  ascent-override: 83.51%;
+  descent-override: 26.92%;
+  line-gap-override: 0%;
+  size-adjust: 134.12%;
 }
 @import "tailwindcss";
 
@@ -53,7 +64,7 @@ html {
 body {
   background-color: var(--bg);
   color: var(--text);
-  font-family: 'Space Mono', 'Courier New', monospace;
+  font-family: 'Space Mono', 'Space Mono Fallback', 'Courier New', monospace;
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
 }
