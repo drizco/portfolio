@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+@import '@fontsource/space-mono/400.css';
+@import '@fontsource/space-mono/700.css';
+@import '@fontsource/space-mono/400-italic.css';
 @import "tailwindcss";
 
 :root {
