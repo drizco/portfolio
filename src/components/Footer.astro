@@ -6,15 +6,22 @@ const year = new Date().getFullYear()
 
 <footer class="footer">
   <hr class="divider" />
-  <p>
-    {profile.name.toLowerCase()} &mdash; {year}
-    &nbsp;&middot;&nbsp;
-    <a href={profile.social.github} target="_blank" rel="noopener">[github]</a>
-    &nbsp;
-    <a href={profile.social.linkedin} target="_blank" rel="noopener">[linkedin]</a>
-    &nbsp;
-    <a href={`mailto:${profile.social.email}`}>[email]</a>
-  </p>
+  <ul>
+    <li>
+      {profile.name.toLowerCase()} &mdash; {year}
+      <span class="dot">&nbsp;&nbsp;&middot;</span>
+    </li>
+    <li>
+      <a href={profile.social.github} target="_blank" rel="noopener">[github]</a>
+    </li>
+
+    <li>
+      <a href={profile.social.linkedin} target="_blank" rel="noopener">[linkedin]</a>
+    </li>
+    <li>
+      <a href={`mailto:${profile.social.email}`}>[email]</a>
+    </li>
+  </ul>
 </footer>
 
 <style>
@@ -24,8 +31,20 @@ const year = new Date().getFullYear()
     padding: 0 2rem 3rem;
   }
 
-  .footer p {
+  .footer ul {
     color: var(--muted);
     font-size: 0.85rem;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+  }
+
+  @media (max-width: 640px) {
+    .footer ul {
+      flex-direction: column;
+    }
+    .dot {
+      display: none;
+    }
   }
 </style>

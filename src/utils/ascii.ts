@@ -18,7 +18,7 @@ export const createRow = ({
   const g = (c: string): AsciiChar => ({ char: c, grid: true })
   const t = (c: string): AsciiChar => ({ char: c, grid: false })
 
-  const chars: AsciiChar[] = Array(7).fill(g(char))
+  const chars: AsciiChar[] = Array(5).fill(g(char))
   const textChars: AsciiChar[] = [
     t('\u00A0'),
     ...text.replace(/ /g, '\u00A0').split('').map(t),
