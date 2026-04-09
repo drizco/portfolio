@@ -20,9 +20,13 @@ const artConfig: Array<null | { text: string; char?: string; right?: boolean }> 
 ]
 ---
 
-<section class="hero">
+<section class="hero" aria-labelledby="hero-heading">
   <div class="hero-inner">
-    <div class="ascii-art">
+    <div class="sr-only">
+      <h1 id="hero-heading">{profile.name}</h1>
+      <p>{profile.title}</p>
+    </div>
+    <div class="ascii-art" aria-hidden="true">
       {
         artConfig.map((config) => (
           <div class={`row ${config?.right ? 'row-right' : ''}`}>
@@ -80,14 +84,14 @@ const artConfig: Array<null | { text: string; char?: string; right?: boolean }> 
   .ascii-art span {
     display: inline-block;
     transition:
-      color 2s ease-out,
-      transform 2s ease-out;
+      color 2.5s ease-out,
+      transform 2.5s ease-out;
   }
 
   .ascii-art span:hover,
   .ascii-art span.touched {
     color: var(--accent);
-    transform: translateY(-13%) scale(1.9);
+    transform: translateY(-14%) scale(1.8);
     transition:
       color 0.05s ease,
       transform 0.05s ease;

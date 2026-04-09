@@ -18,7 +18,7 @@ const groupedProjects = projects.reduce<[Project[], Project[]]>(
     groupedProjects.map((group, i) => (
       <>
         <div class="group">
-          <p class="group-heading muted">// {group[0]?.type ?? ''}</p>
+          <h3 class="group-heading muted">// {group[0]?.type ?? ''}</h3>
           <div class="project-list">
             {group.map((p) => (
               <div class="project">
@@ -68,6 +68,7 @@ const groupedProjects = projects.reduce<[Project[], Project[]]>(
 
   .group-heading {
     font-size: 0.8rem;
+    font-weight: normal;
     margin-bottom: 1.25rem;
     font-style: italic;
   }
