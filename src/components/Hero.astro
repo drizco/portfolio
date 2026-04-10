@@ -38,7 +38,16 @@ const artConfig: Array<null | { text: string; right?: boolean }> = [
 
     <script is:inline>
       {
-        const coolChars = ['\u00bb', '\u2261', '~', '\u2534', '\u00a4', '/', '\u00b7']
+        const coolChars = [
+          '\u00bb',
+          '\u2261',
+          '~',
+          '\u2534',
+          '\u00a4',
+          '/',
+          '\u00b7',
+          '\u29bf',
+        ]
         const newChar = coolChars[Math.floor(Math.random() * coolChars.length)]
         document.querySelectorAll('.ascii-art [data-grid]').forEach((span) => {
           span.textContent = newChar
@@ -101,10 +110,11 @@ const artConfig: Array<null | { text: string; right?: boolean }> = [
   .ascii-art span[data-grid]:hover,
   .ascii-art span[data-grid].touched {
     color: var(--accent);
-    transform: rotate(-20deg) translateY(-12%) scale(2.1); /* grid chars */
+    font-weight: 700;
+    transform: rotate(365deg) translateY(-25%) scale(1.4); /* grid chars */
     transition:
       color 0.05s ease,
-      transform 0.05s ease;
+      transform 0.15s ease;
   }
 
   .ascii-art span:not([data-grid]):hover,
@@ -118,7 +128,7 @@ const artConfig: Array<null | { text: string; right?: boolean }> = [
 
   .tagline {
     color: var(--muted);
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
   }
 
   @media (max-width: 640px) {
