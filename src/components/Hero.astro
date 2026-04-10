@@ -128,8 +128,8 @@ const artConfig: Array<null | { text: string; right?: boolean }> = [
       transform 0.05s ease;
   }
 
-  .ascii-art span:not(.grid):hover,
-  .ascii-art span:not(.grid).touched {
+  .ascii-art span.text:hover,
+  .ascii-art span.text.touched {
     color: var(--accent);
     transform: rotate(3deg) translateY(-12%) scale(2.1); /* text chars */
     transition:

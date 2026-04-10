@@ -1,12 +1,13 @@
-const width = 100
+import { ASCII_GRID_WIDTH, MIN_PADDING, NBSP } from './constants'
+
 const defaultChar = ''
 
 export type AsciiChar = { char: string; className?: string }
 
 export const filledRow = (char: string = defaultChar): AsciiChar[] =>
-  Array(width).fill({ char, className: 'grid' })
+  Array(ASCII_GRID_WIDTH).fill({ char, className: 'grid' })
 
-const replaceSpace = (char: string): string => (char === ' ' ? '\u00A0' : char)
+const replaceSpace = (char: string): string => (char === ' ' ? NBSP : char)
 
 export const createChar = ({
   char,
@@ -38,13 +39,13 @@ export const createRow = ({
 }): AsciiChar[] => {
   const space = createChar({ char: ' ' })
   let chars: AsciiChar[] = []
-  const minimumPadding = Array(5).fill(createChar({ char, className: 'grid' }))
+  const minimumPadding = Array(MIN_PADDING).fill(createChar({ char, className: 'grid' }))
   const textChars: AsciiChar[] = [
     space,
     ...getCharsFromText({ text, className: 'text' }),
     space,
   ]
-  const padding: AsciiChar[] = Array(Math.max(0, width - chars.length)).fill(
+  const padding: AsciiChar[] = Array(Math.max(0, ASCII_GRID_WIDTH - chars.length)).fill(
     createChar({ char, className: 'grid' })
   )
 
