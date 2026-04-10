@@ -3,29 +3,53 @@ on:
   workflow_call:
 
 jobs:
-  audit:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v5
         with:
           node-version: '22'
+      - run: npm ci && npm run build
 
-      - name: Build
-        run: npm ci && npm run build
+      - name: Upload dist
+        uses: actions/upload-artifact@v5
+        with:
+          name: dist-files
+          path: dist/
 
+  audit-light:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Download dist
+        uses: actions/download-artifact@v5
+        with:
+          name: dist-files
+          path: dist/
       - name: Audit Light Mode
         uses: treosh/lighthouse-ci-action@v12
         with:
           configPath: './lighthouserc.light.json'
           uploadArtifacts: true
           temporaryPublicStorage: true
-          artifactName: 'lighthouse-light-mode'
+          artifactName: 'lighthouse-light'
 
+  audit-dark:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Download dist
+        uses: actions/download-artifact@v5
+        with:
+          name: dist-files
+          path: dist/
       - name: Audit Dark Mode
         uses: treosh/lighthouse-ci-action@v12
         with:
           configPath: './lighthouserc.dark.json'
           uploadArtifacts: true
           temporaryPublicStorage: true
-          artifactName: 'lighthouse-dark-mode'
+          artifactName: 'lighthouse-dark'
