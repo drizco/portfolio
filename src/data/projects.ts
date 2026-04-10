@@ -29,8 +29,8 @@ export const projects: Project[] = [
   {
     title: 'MEmail',
     description:
-      'Chrome extension for email bookmarking — save emails you want to act on later without cluttering your inbox. Mobile app in development',
-    tags: ['Chrome Extension', 'Android app'],
+      'Chrome extension for sending links straight to your gmail inbox in one click. Mobile app in development',
+    tags: ['Chrome Extension', 'Android app', 'Flutter'],
     github: 'https://github.com/drizco/memail',
     url: 'https://memail.drizco.dev',
     type: 'personal',
