@@ -2,7 +2,8 @@
   "ci": {
     "collect": {
       "numberOfRuns": 3,
-      "staticDistDir": "./dist"
+      "staticDistDir": "./dist",
+      "settings": { "emulatedFormFactor": "mobile" }
     },
     "upload": {
       "target": "temporary-public-storage"

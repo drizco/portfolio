@@ -37,7 +37,7 @@
 :root {
   --bg: #faf9f5;
   --text: #444444;
-  --muted: #777777;
+  --muted: #666666; /* ~5.5:1 contrast on cream bg — WCAG AA */
   --accent: #1252b0; /* ~7.1:1 contrast on cream bg — WCAG AAA */
   --border: #d4d0c8;
 }

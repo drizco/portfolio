@@ -6,7 +6,11 @@ on:
       - main
 
 jobs:
+  run-lighthouses:
+    uses: ./.github/workflows/lighthouse.yml
+
   deploy:
+    needs: run-lighthouses
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5

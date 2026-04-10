@@ -1,0 +1,21 @@
+{
+  "ci": {
+    "collect": {
+      "numberOfRuns": 3,
+      "staticDistDir": "./dist",
+      "settings": {
+        "emulatedFormFactor": "mobile",
+        "extraCcFlags": "--force-dark-mode"
+      }
+    },
+    "upload": {
+      "target": "temporary-public-storage"
+    },
+    "assert": {
+      "assertions": {
+        "categories:performance": ["error", { "minScore": 0.99 }],
+        "categories:accessibility": ["error", { "minScore": 0.99 }]
+      }
+    }
+  }
+}
