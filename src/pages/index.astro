@@ -8,7 +8,7 @@ import Footer from '../components/Footer.astro'
 import { profile } from '../data/profile'
 ---
 
-<Base title={`${profile.name} — Portfolio`} description={profile.tagline}>
+<Base title={profile.name} description={profile.tagline}>
   <main>
     <Hero />
     <About />
