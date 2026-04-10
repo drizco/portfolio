@@ -98,6 +98,7 @@ const artConfig: Array<null | { text: string; right?: boolean }> = [
     color: var(--text);
     margin: 0 0 3rem;
     user-select: none;
+    touch-action: none;
   }
 
   .ascii-art span {
@@ -170,19 +171,17 @@ const artConfig: Array<null | { text: string; right?: boolean }> = [
     art.addEventListener(
       'touchstart',
       (e) => {
-        e.preventDefault()
         applyTouch(e.touches[0])
       },
-      { passive: false }
+      { passive: true }
     )
 
     art.addEventListener(
       'touchmove',
       (e) => {
-        e.preventDefault()
         applyTouch(e.touches[0])
       },
-      { passive: false }
+      { passive: true }
     )
 
     art.addEventListener(
