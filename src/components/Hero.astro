@@ -118,14 +118,34 @@ const artConfig: Array<null | { text: string; right?: boolean }> = [
     font-weight: 700;
   }
 
-  .ascii-art span.grid:hover,
-  .ascii-art span.grid.touched {
+  /* Grid spans: skip color transition — use ::after opacity instead (compositor-only, no repaint) */
+  .ascii-art span.grid {
+    transition: transform 2.5s ease-out;
+    position: relative;
+  }
+
+  .ascii-art span.grid::after {
+    content: var(--grid-char, '');
+    position: absolute;
+    left: 0;
+    top: 0;
     color: var(--accent);
     font-weight: 700;
+    opacity: 0;
+    transition: opacity 2.5s ease-out;
+  }
+
+  .ascii-art span.grid:hover,
+  .ascii-art span.grid.touched {
+    font-weight: 700;
     transform: rotate(360deg) translateY(-25%) scale(1.4); /* grid chars */
-    transition:
-      color 0.05s ease,
-      transform 0.05s ease;
+    transition: transform 0.05s ease;
+  }
+
+  .ascii-art span.grid:hover::after,
+  .ascii-art span.grid.touched::after {
+    opacity: 1;
+    transition: opacity 0.05s ease;
   }
 
   .ascii-art span.text:hover,
@@ -163,6 +183,7 @@ const artConfig: Array<null | { text: string; right?: boolean }> = [
   const art = document.querySelector('.ascii-art') as HTMLElement | null
   if (art) {
     let current: HTMLElement | null = null
+    let rafPending = false
 
     function applyTouch(touch: Touch) {
       const el = document.elementFromPoint(touch.clientX, touch.clientY)
@@ -189,7 +210,13 @@ const artConfig: Array<null | { text: string; right?: boolean }> = [
     art.addEventListener(
       'touchmove',
       (e) => {
-        applyTouch(e.touches[0])
+        if (rafPending) return
+        rafPending = true
+        const touch = e.touches[0]
+        requestAnimationFrame(() => {
+          applyTouch(touch)
+          rafPending = false
+        })
       },
       { passive: true }
     )
