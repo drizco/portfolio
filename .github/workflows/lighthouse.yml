@@ -17,6 +17,7 @@ jobs:
         with:
           name: dist-files
           path: dist/
+          retention-days: 1
 
   audit-light:
     needs: build
