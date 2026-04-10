@@ -7,12 +7,14 @@ const bar = filledRow()
 const artConfig: Array<null | { text: string; right?: boolean }> = [
   null,
   null,
+  null,
   { text: profile.name },
   null,
   null,
   null,
   null,
   { text: profile.title, right: true },
+  null,
   null,
   null,
 ]
@@ -28,8 +30,8 @@ const artConfig: Array<null | { text: string; right?: boolean }> = [
       {
         artConfig.map((config) => (
           <div class={`row${config?.right ? ' row-right' : ''}`}>
-            {(config ? createRow(config) : bar).map((char) => (
-              <span data-grid={char.grid || undefined}>{char.char}</span>
+            {(config ? createRow(config) : bar).map(({ char, className }) => (
+              <span class={className}>{char}</span>
             ))}
           </div>
         ))
@@ -101,7 +103,7 @@ const artConfig: Array<null | { text: string; right?: boolean }> = [
     touch-action: none;
   }
 
-  .ascii-art span[data-grid]::before {
+  .ascii-art span.grid::before {
     content: var(--grid-char, '');
   }
 
@@ -112,8 +114,12 @@ const artConfig: Array<null | { text: string; right?: boolean }> = [
       transform 2.5s ease-out;
   }
 
-  .ascii-art span[data-grid]:hover,
-  .ascii-art span[data-grid].touched {
+  .ascii-art span.text {
+    font-weight: 700;
+  }
+
+  .ascii-art span.grid:hover,
+  .ascii-art span.grid.touched {
     color: var(--accent);
     font-weight: 700;
     transform: rotate(360deg) translateY(-25%) scale(1.4); /* grid chars */
@@ -122,8 +128,8 @@ const artConfig: Array<null | { text: string; right?: boolean }> = [
       transform 0.05s ease;
   }
 
-  .ascii-art span:not([data-grid]):hover,
-  .ascii-art span:not([data-grid]).touched {
+  .ascii-art span:not(.grid):hover,
+  .ascii-art span:not(.grid).touched {
     color: var(--accent);
     transform: rotate(3deg) translateY(-12%) scale(2.1); /* text chars */
     transition:
