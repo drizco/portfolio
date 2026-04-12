@@ -135,23 +135,41 @@ const artConfig: Array<null | { text: string; right?: boolean }> = [
     transition: opacity 2.5s ease-out;
   }
 
-  .ascii-art span.grid:hover,
+  @media (hover: hover) {
+    .ascii-art span.grid:hover {
+      font-weight: 700;
+      transform: rotate(360deg) translateY(-25%) scale(1.4);
+      transition: transform 0.05s ease;
+    }
+
+    .ascii-art span.grid:hover::after {
+      opacity: 1;
+      transition: opacity 0.05s ease;
+    }
+
+    .ascii-art span.text:hover {
+      color: var(--accent);
+      transform: rotate(3deg) translateY(-12%) scale(2.1);
+      transition:
+        color 0.05s ease,
+        transform 0.05s ease;
+    }
+  }
+
   .ascii-art span.grid.touched {
     font-weight: 700;
-    transform: rotate(360deg) translateY(-25%) scale(1.4); /* grid chars */
+    transform: rotate(360deg) translateY(-25%) scale(1.4);
     transition: transform 0.05s ease;
   }
 
-  .ascii-art span.grid:hover::after,
   .ascii-art span.grid.touched::after {
     opacity: 1;
     transition: opacity 0.05s ease;
   }
 
-  .ascii-art span.text:hover,
   .ascii-art span.text.touched {
     color: var(--accent);
-    transform: rotate(3deg) translateY(-12%) scale(2.1); /* text chars */
+    transform: rotate(3deg) translateY(-12%) scale(2.1);
     transition:
       color 0.05s ease,
       transform 0.05s ease;
@@ -184,6 +202,7 @@ const artConfig: Array<null | { text: string; right?: boolean }> = [
   if (art) {
     let current: HTMLElement | null = null
     let rafId: number | null = null
+    let touchActive = false
 
     function applyTouch(touch: Touch) {
       const el = document.elementFromPoint(touch.clientX, touch.clientY)
@@ -199,9 +218,20 @@ const artConfig: Array<null | { text: string; right?: boolean }> = [
       }
     }
 
+    function endTouch() {
+      touchActive = false
+      if (rafId !== null) {
+        cancelAnimationFrame(rafId)
+        rafId = null
+      }
+      current?.classList.remove('touched')
+      current = null
+    }
+
     art.addEventListener(
       'touchstart',
       (e) => {
+        touchActive = true
         applyTouch(e.touches[0])
       },
       { passive: true }
@@ -210,7 +240,7 @@ const artConfig: Array<null | { text: string; right?: boolean }> = [
     art.addEventListener(
       'touchmove',
       (e) => {
-        if (rafId !== null) return
+        if (!touchActive || rafId !== null) return
         const touch = e.touches[0]
         rafId = requestAnimationFrame(() => {
           applyTouch(touch)
@@ -220,17 +250,7 @@ const artConfig: Array<null | { text: string; right?: boolean }> = [
       { passive: true }
     )
 
-    art.addEventListener(
-      'touchend',
-      () => {
-        if (rafId !== null) {
-          cancelAnimationFrame(rafId)
-          rafId = null
-        }
-        current?.classList.remove('touched')
-        current = null
-      },
-      { passive: true }
-    )
+    art.addEventListener('touchend', endTouch, { passive: true })
+    art.addEventListener('touchcancel', endTouch, { passive: true })
   }
 </script>
