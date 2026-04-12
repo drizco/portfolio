@@ -183,7 +183,7 @@ const artConfig: Array<null | { text: string; right?: boolean }> = [
   const art = document.querySelector('.ascii-art') as HTMLElement | null
   if (art) {
     let current: HTMLElement | null = null
-    let rafPending = false
+    let rafId: number | null = null
 
     function applyTouch(touch: Touch) {
       const el = document.elementFromPoint(touch.clientX, touch.clientY)
@@ -210,12 +210,11 @@ const artConfig: Array<null | { text: string; right?: boolean }> = [
     art.addEventListener(
       'touchmove',
       (e) => {
-        if (rafPending) return
-        rafPending = true
+        if (rafId !== null) return
         const touch = e.touches[0]
-        requestAnimationFrame(() => {
+        rafId = requestAnimationFrame(() => {
           applyTouch(touch)
-          rafPending = false
+          rafId = null
         })
       },
       { passive: true }
@@ -224,6 +223,10 @@ const artConfig: Array<null | { text: string; right?: boolean }> = [
     art.addEventListener(
       'touchend',
       () => {
+        if (rafId !== null) {
+          cancelAnimationFrame(rafId)
+          rafId = null
+        }
         current?.classList.remove('touched')
         current = null
       },
